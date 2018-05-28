@@ -1,0 +1,42 @@
+Os 5 URLs que mais causaram erro 404:
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.102.31.172=1
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.104.235.243=8
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.118.77.243=2
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.132.64.216=1
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.158.11.56=1
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.158.128.60=1
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: URL:128.158.20.67=4
+
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Quantidade de erros 404 por dia: 
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 01/Jul/1995: Total: 316
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 02/Jul/1995: Total: 291
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 03/Jul/1995: Total: 474
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 04/Jul/1995: Total: 359
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 05/Jul/1995: Total: 497
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 06/Jul/1995: Total: 640
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 07/Jul/1995: Total: 570
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 08/Jul/1995: Total: 302
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 09/Jul/1995: Total: 348
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 10/Jul/1995: Total: 398
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 11/Jul/1995: Total: 471
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 12/Jul/1995: Total: 471
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 13/Jul/1995: Total: 531
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 14/Jul/1995: Total: 413
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 15/Jul/1995: Total: 254
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 16/Jul/1995: Total: 257
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 17/Jul/1995: Total: 406
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 18/Jul/1995: Total: 465
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 19/Jul/1995: Total: 639
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 20/Jul/1995: Total: 428
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 21/Jul/1995: Total: 334
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 22/Jul/1995: Total: 192
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 23/Jul/1995: Total: 233
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 24/Jul/1995: Total: 328
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 25/Jul/1995: Total: 461
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 26/Jul/1995: Total: 336
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 27/Jul/1995: Total: 336
+18/05/27 23:54:54 INFO nasa.NasaAnalitics: Data: 28/Jul/1995: Total: 94
+
+18/05/27 23:54:55 INFO nasa.NasaAnalitics: O total de erros 404: 10844
+18/05/27 23:54:55 INFO nasa.NasaAnalitics: O total de bytes retornados: 77391946982
+18/05/27 23:54:55 INFO nasa.NasaAnalitics: Número de hosts únicos: 81983

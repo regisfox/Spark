@@ -1,13 +1,10 @@
 package com.nasa;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +14,13 @@ import org.apache.spark.api.java.JavaDoubleRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
+/**
+ * Implementação utilizando spark mais java 8.
+ * compilação e download via maven project.
+ * Arquivo com respostas geradas na pasta doc/respostas-desafio-nasa.
+ * @author rsfagundes
+ *
+ */
 public class NasaAnalitics {
 
 	private static String error404 = "404 -";
@@ -24,47 +28,79 @@ public class NasaAnalitics {
 
 	public static void main(String[] args) {
 		// Caminho do arquivo para leitura.
-		String inputFile = "C:\\Users\\rsfagundes\\Downloads\\NASA_access_log_Aug95\\NASA_access_log_Aug95";
-		// String inputFile = args[0];
+		String inputFile = null;
+		if (0 > args.length) {
+			inputFile = args[0];
+			logger.info(inputFile);
+		} else {
+//			inputFile = "C:\\Users\\rsfagundes\\Downloads\\NASA_access_log_Aug95\\NASA_access_log_Aug95";
+			inputFile = "C:\\Users\\rsfagundes\\Downloads\\NASA_access_log_Aug95\\NASA_access_log_Jul95";
+			logger.info(inputFile);
+		}
 
 		SparkConf conf = new SparkConf().setAppName("nasa-analitics").setMaster("local[2]").set("spark.executor.memory", "1g");
-
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		JavaRDD<String> file = sc.textFile(inputFile);
-
+		file.cache();
+		file.count();
 		JavaRDD<String> totalErrors404 = file.filter(object -> String.valueOf(object).contains(error404));
 
 		List<String> dadosHost = file.collect();
 		Set<String> hostUnicos = new HashSet<>();
 		for (String linha : dadosHost) {
 			String[] arrayValores = linha.split(" ");
-			hostUnicos.add(arrayValores[0]);
+			hostUnicos.add(arrayValores[0].toLowerCase().trim());
 		}
 
-		List<String> dadosDia = file.collect();
-		for (String linha : dadosDia) {
+		SortedMap<String, Integer> orderUrls = new TreeMap<String, Integer>();
+		for (String linha : dadosHost) {
 			String[] arrayValores = linha.split(" ");
+			String data = arrayValores[0].toLowerCase().trim();
 			if (arrayValores.length > 3) {
-			String data = arrayValores[arrayValores.length-2];
-				if (data.contains("404")) {
-					System.out.println(data);	
+				String code = arrayValores[arrayValores.length - 2];
+				if (code.equals("404")) {
+					if (orderUrls.containsKey(data)) {
+						orderUrls.put(data, orderUrls.get(data) + 1);
+					} else {
+						orderUrls.put(data, 1);
+					}
 				}
+			}
+
+		}
+
+		logger.info("Os 5 URLs que mais causaram erro 404:");
+		int count = 0;
+
+		for (Entry<String, Integer> entry : orderUrls.entrySet()) {
+			logger.info("URL:" + entry.toString());
+			count++;
+			if (count > 6) {
+				break;
 			}
 		}
 
-//		Set<String> dias = new HashSet<>();
-//		for (String linha : dadosDia) {
-//			String[] arrayValores = linha.split(" ");
-//			if (arrayValores.length > 3) {
-//				String data = arrayValores[3].substring(1, 13);
-//				dias.add(data);
-//			}
-//		}
+		List<String> dadosDia = totalErrors404.collect();
+		SortedMap<String, Integer> diasCountError = new TreeMap<String, Integer>();
+
+		for (String linha : dadosDia) {
+			String[] arrayValores = linha.split(" ");
+			String data = arrayValores[3].substring(1, 13);
+			if (diasCountError.containsKey(data)) {
+				diasCountError.put(data, diasCountError.get(data) + 1);
+			} else {
+				diasCountError.put(data, 1);
+			}
+		}
+		logger.info("Quantidade de erros 404 por dia: ");
+		for (Entry<String, Integer> entry : diasCountError.entrySet()) {
+			logger.info("Data: " + entry.getKey() + " Total: " + entry.getValue());
+		}
 
 		JavaDoubleRDD bytes = file.mapToDouble(t -> {
 			String[] arrayValores = t.split(" ");
 			double s = 0;
-			if (StringUtils.isNumeric(arrayValores[(arrayValores.length - 1)])) {
+			if (arrayValores.length > 3 && StringUtils.isNumeric(arrayValores[(arrayValores.length - 1)])) {
 				s = Double.parseDouble(arrayValores[(arrayValores.length - 1)]);
 			}
 			return s + s;
@@ -72,27 +108,8 @@ public class NasaAnalitics {
 		java.math.BigDecimal totalBytes = new java.math.BigDecimal(bytes.sum());
 
 		logger.info("O total de erros 404: " + totalErrors404.count());
-		logger.info("Os 5 URLs que mais causaram erro 404: " + 0);
-		logger.info("Quantidade de erros 404 por dia: " + 0);
 		logger.info("O total de bytes retornados: " + totalBytes.toString());
 		logger.info("Número de hosts únicos: " + hostUnicos.size());
 
-	}
-	
-	public class DataControle{
-		private String data;
-		private long contador;
-		public String getData() {
-			return data;
-		}
-		public void setData(String data) {
-			this.data = data;
-		}
-		public long getContador() {
-			return contador;
-		}
-		public void setContador(long contador) {
-			this.contador = contador;
-		}
 	}
 }
